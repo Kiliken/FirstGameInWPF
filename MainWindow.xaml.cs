@@ -29,17 +29,18 @@ namespace FirstGameInWPF
     {
         const float GRAVITY = 0.5f;
         private DispatcherTimer GameTimer = new DispatcherTimer();
+        private bool UpKeyPressed,LeftKeyPressed,RightKeyPressed;
         PlayerClass player = new PlayerClass(0,0);
 
         private class PlayerClass {
-            struct Coordinates{ 
+            public struct Coordinates{ 
                 public float X {get; set;}
                 public float Y {get; set;}
 
             }
 
             Coordinates pos;
-            Coordinates vel = new Coordinates{ X=0,Y=1};
+            public Coordinates vel = new Coordinates{ X=0,Y=1};
             Canvas canvas;
             static double playerHeight = 100.0;
 
@@ -71,6 +72,7 @@ namespace FirstGameInWPF
             {
                 Draw();
                 pos.Y += vel.Y;
+                pos.X += vel.X;
                 if (pos.Y + playerHeight + vel.Y < canvas.ActualHeight)
                     vel.Y += GRAVITY;
                 else vel.Y = 0;
@@ -83,6 +85,7 @@ namespace FirstGameInWPF
         public MainWindow()
         {
             InitializeComponent();
+            GameScreen.Focus();
             player.SetCanvas(ref GameScreen);
 
             GameTimer.Interval = TimeSpan.FromMilliseconds(16);
@@ -93,6 +96,39 @@ namespace FirstGameInWPF
         private void GameTick(object sender, EventArgs e)
         {
             player.Update();
+
+            player.vel.X = 0;
+            if (LeftKeyPressed) player.vel.X = -5;
+            else if (RightKeyPressed) player.vel.X = 5;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e){
+            switch(e.Key) {
+                case Key.A:
+                    LeftKeyPressed = true;
+                    break;
+                case Key.D:
+                    RightKeyPressed = true;
+                    break;
+                case Key.W:
+                    //UpKeyPressed = true;
+                    player.vel.Y = -15;
+                    break;
+            }
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e){
+            switch(e.Key) {
+                case Key.A:
+                    LeftKeyPressed = false;
+                    break;
+                case Key.D:
+                    RightKeyPressed = false;
+                    break;
+                case Key.W:
+                    UpKeyPressed = false;
+                    break;
+            }
         }
     }
 }

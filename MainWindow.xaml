@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FirstGameInWPF" Height="450" Width="800">
         <Grid>
-                <Canvas x:Name="GameScreen" Focusable="True">
+                <Canvas x:Name="GameScreen" Focusable="True" KeyUp="OnKeyUp" KeyDown="OnKeyDown" >
                 </Canvas>
         </Grid>
 </Window>
