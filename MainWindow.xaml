@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FirstGameInWPF"
         mc:Ignorable="d"
-        Title="FirstGameInWPF" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="FirstGameInWPF" Height="720" Width="1280">
         <Grid>
                 <Canvas x:Name="GameScreen" Focusable="True" KeyUp="OnKeyUp" KeyDown="OnKeyDown" >
+                        
                 </Canvas>
         </Grid>
 </Window>

@@ -7,6 +7,10 @@ set projname=FirstGameInWPF
 ::%compiler% -t:winexe -out:"release\Program.exe" -r:"%refpath%\PresentationCore.dll" -r:"%refpath%\PresentationFramework.dll" -r:"%refpath%\WindowsBase.dll" src\*.cs
 %compiler%  "%projname%.csproj"
 
+set game="%cd%\bin\Debug\%projname%.exe"
+
+%game%
+
 pause
 
 
