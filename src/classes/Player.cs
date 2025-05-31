@@ -7,12 +7,12 @@ namespace GameClasses
     public class PlayerClass
     {
 
-        const float GRAVITY = 0.5f;
+        
 
-        Coordinates pos;
-        public Coordinates vel = new Coordinates { X = 0, Y = 1 };
+        public Coordinates pos;
+        public Coordinates vel = new Coordinates { X = 0, Y = 0 };
         Canvas canvas;
-        static double playerHeight = 100.0;
+        public static float playerHeight = 100.0f;
 
         private Rectangle playerSprite = new Rectangle
         {
@@ -46,9 +46,9 @@ namespace GameClasses
             Draw();
             pos.Y += vel.Y;
             pos.X += vel.X;
-            if (pos.Y + playerHeight + vel.Y < canvas.ActualHeight)
+            /*if (pos.Y + playerHeight + vel.Y < canvas.ActualHeight)
                 vel.Y += GRAVITY;
-            else vel.Y = 0;
+            else vel.Y = 0;*/
         }
 
     }

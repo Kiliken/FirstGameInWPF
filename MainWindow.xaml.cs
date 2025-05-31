@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Globalization;
 using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -31,7 +32,10 @@ namespace FirstGameInWPF
     {
         const float GRAVITY = 0.5f;
         private DispatcherTimer GameTimer = new DispatcherTimer();
-        private bool UpKeyPressed,LeftKeyPressed,RightKeyPressed;
+        private bool LeftKeyPressed,RightKeyPressed,freeFall;
+        private float jumpCooldown;
+
+        List<Rect> colliders = new List<Rect>();
         PlayerClass player = new PlayerClass(0,0);
 
         Sprite bg = new Sprite(new Rect(0, 1, 2, 2), "map/background.png");
@@ -52,6 +56,19 @@ namespace FirstGameInWPF
 
             GameScreen.Background = bg.image;
 
+            foreach( var x in GameScreen.Children.OfType<Rectangle>()){
+                
+                if((string)x.Tag == "collider"){
+
+                    //x.Stroke = Brushes.Black;
+                    colliders.Add(new Rect(Canvas.GetLeft(x),Canvas.GetTop(x), x.Width, x.Height));
+                    
+                }
+                
+            }
+
+            
+
         }
 
         private void GameTick(object sender, EventArgs e)
@@ -61,6 +78,37 @@ namespace FirstGameInWPF
             player.vel.X = 0;
             if (LeftKeyPressed) player.vel.X = -5;
             else if (RightKeyPressed) player.vel.X = 5;
+
+
+            Rect playerHitbox = new Rect(player.pos.X, player.pos.Y, 100f, PlayerClass.playerHeight);
+
+            foreach (Rect x in colliders)
+            {
+                if (playerHitbox.IntersectsWith(x))
+                {
+                    //textInfo.Content = "player = " + playerHitbox.ToString() + "\n coll = " + x.ToString();
+
+
+
+                    if (player.pos.Y > x.Top - x.Height / 2)
+                    {
+
+                    }
+                    else
+                    {
+                        player.vel.Y = 0;
+                        player.pos.Y = (float)x.Top - PlayerClass.playerHeight;
+                        freeFall = false;
+                    }
+                }
+                else
+                    freeFall = true;
+            }
+
+            if (freeFall)
+                player.vel.Y += GRAVITY;
+            
+
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e){
@@ -72,8 +120,9 @@ namespace FirstGameInWPF
                     RightKeyPressed = true;
                     break;
                 case Key.W:
-                    //UpKeyPressed = true;
-                    player.vel.Y = -15;
+                    
+                        player.vel.Y = -15;
+                    
                     break;
             }
         }
@@ -86,9 +135,7 @@ namespace FirstGameInWPF
                 case Key.D:
                     RightKeyPressed = false;
                     break;
-                case Key.W:
-                    UpKeyPressed = false;
-                    break;
+                
             }
         }
     }
