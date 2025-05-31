@@ -92,7 +92,7 @@ namespace FirstGameInWPF
 
                     if (player.pos.Y > x.Top - x.Height / 2)
                     {
-
+                        //
                     }
                     else
                     {

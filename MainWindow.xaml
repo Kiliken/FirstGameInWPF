@@ -12,8 +12,10 @@
                         <Label Name="textInfo" FontSize="16"> </Label>
                         <Rectangle Tag="collider" Width="420" Height="100" Canvas.Left="0" Canvas.Top="520"/>
                         <Rectangle Tag="collider"  Width="2000" Height="100" Canvas.Left="0" Canvas.Top="710"/>
-                        <Rectangle Tag="collider"  Fill="Black" Width="200" Height="30" Canvas.Left="500" Canvas.Top="150"/>
-                        <Rectangle Tag="collider"  Fill="Black" Width="200" Height="30" Canvas.Left="500" Canvas.Top="250"/>
+                        <Rectangle Tag="collider"  Width="200" Height="15" Canvas.Left="500" Canvas.Top="155"/>
+                        <Rectangle Tag="collider"  Width="200" Height="15" Canvas.Left="500" Canvas.Top="340"/>
+                        <Rectangle Tag="collider"  Width="200" Height="15" Canvas.Left="110" Canvas.Top="30"/>
+                        <Rectangle Tag="collider" Width="200" Height="15" Canvas.Left="1050" Canvas.Top="30"/>
                 </Canvas>
         </Grid>
 </Window>
